@@ -8,7 +8,7 @@ const Page = () => {
   return (
     <div>
       <Hero/>
-      <div className= "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 justify-center">
+      <div className= "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 m-14 gap-8 justify-center">
       {productsMock.slice(0,3).map((product, i) => (
         <Card key={i} {...product} />
       ))}

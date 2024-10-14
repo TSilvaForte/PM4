@@ -1,68 +1,63 @@
 import React from 'react';
 import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from 'react-icons/fa';
 import Link from 'next/link';
-import styles from './Footer.module.css';
 
 const Footer = () => {
+  const quickLinks = [
+    { href: '/shop', label: 'Shop' },
+    { href: '/products', label: 'Products' },
+    { href: '/about', label: 'About Us' },
+    { href: '/support', label: 'Support' },
+  ];
+
   return (
-    <footer className={styles.footer}>
-      <div className={styles.footerContainer}>
-        <div className={styles.footercolumn}>
-          <h3 className={styles.sectionTitle}>About FullTechno</h3>
-          <img src="./logo.png" alt="Logo" className={styles.logo}/>
-          <p className={styles.sectionText}>
+    <footer className="bg-secondary text-text py-8 px-8 text-center">
+      <div className="flex mx-auto gap-6">
+        <div className="flex-grow flex-shrink w-1/3">
+          <h3 className="text-xl mb-4 text-tertiary">About FullTechno</h3>
+          <img src="./logo.png" alt="Logo" className="h-12 w-12 inline-block mb-4" />
+          <p className="text-sm leading-6 text-text">
             FullTechno brings you the latest technology products and accessories to meet your needs. Quality guaranteed and worldwide support!
           </p>
         </div>
-        
-        <div className={styles.footercolumn}>
-          <h3 className={styles.sectionTitle}>Quick Links</h3>
-          <ul className={styles.footerList}>
-            <li className={styles.footerListItem}>
-              <Link href="/shop" className={styles.footerLink}>Shop</Link>
-            </li>
-            <li className={styles.footerListItem}>
-              <Link href="/products" className={styles.footerLink}>Products</Link>
-            </li>
-            <li className={styles.footerListItem}>
-              <Link href="/categories" className={styles.footerLink}>Categories</Link>
-            </li>
-            <li className={styles.footerListItem}>
-              <Link href="/about" className={styles.footerLink}>About Us</Link>
-            </li>
-            <li className={styles.footerListItem}>
-              <Link href="/support" className={styles.footerLink}>Support</Link>
-            </li>
+
+        <div className="flex-grow flex-shrink w-1/3">
+          <h3 className="text-xl mb-4 text-tertiary">Quick Links</h3>
+          <ul className="list-none p-0">
+            {quickLinks.map((link, index) => (
+              <li key={index} className="mb-2">
+                <Link href={link.href} className="text-text transition-colors duration-300 ease-in-out hover:text-tertiary">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className={styles.footercolumn}>
-          <h3 className={styles.sectionTitle}>Contact Us</h3>
-          <div className={styles.infocontainer}>
-          <p className={styles.sectionText}>
-            <FaEnvelope className={styles.icon} /> support@fulltechno.com
-          </p>
+        <div className="flex-grow flex-shrink w-1/3">
+          <h3 className="text-xl mb-4 text-tertiary">Contact Us</h3>
+          <div className="flex justify-center items-center mb-2">
+            <FaEnvelope className="mr-2 text-text" />
+            <p className="text-sm leading-6 text-text">support@fulltechno.com</p>
           </div>
-          <div className={styles.infocontainer}>
-          <p className={styles.sectionText}>
-            <FaPhone className={styles.icon} /> +1 234 567 890
-          </p>
+          <div className="flex justify-center items-center mb-4">
+            <FaPhone className="mr-2 text-text" />
+            <p className="text-sm leading-6 text-text">+1 234 567 890</p>
           </div>
-        </div>
 
-        <div className={styles.footercolumn}>
-          <h3 className={styles.sectionTitle}>Follow Us</h3>
-          <div className={styles.socialIcons}>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                <FaInstagram className={styles.socialIcon} />
-                </a>
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                <FaFacebook className={styles.socialIcon} />
-                </a>
+          <h3 className="text-xl mb-4 text-tertiary">Follow Us</h3>
+          <div className="flex justify-center gap-4">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="text-text text-2xl transition-colors duration-300 ease-in-out hover:text-tertiary" />
+            </a>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebook className="text-text text-2xl transition-colors duration-300 ease-in-out hover:text-tertiary" />
+            </a>
           </div>
         </div>
       </div>
-      <div className={styles.footerBottom}>
+
+      <div className="border-t border-gray-600 pt-4 mt-6 text-xs text-gray-400">
         <p>© {new Date().getFullYear()} FullTechno. All rights reserved.</p>
       </div>
     </footer>
@@ -70,3 +65,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

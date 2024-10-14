@@ -1,9 +1,10 @@
 import React from "react";
+import Carousel from "@/components/Carousel/Carousel";
 
 export const Hero = () => {
     return(
         <div> 
-            Hero Carrousel
+            <Carousel/>
         </div>
     )
 }

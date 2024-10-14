@@ -1,63 +1,54 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa'; 
-import styles from './Navbar.module.css';
+
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode; // Si no hago este tipado del contenido del href y children, llora
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
+  <Link href={href} className="text-text text-base transition-colors duration-300 ease-in-out hover:text-tertiary">
+    {children}
+  </Link>
+);
 
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
-
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navContainer}>
-        <Link href="/" className={styles.logo}>
-          <img src="/logo.png" alt="Logo" className={styles.logoImage} />
-          <span className={styles.logoText}>FullTechno</span>
+    <nav className="bg-secondary shadow-md fixed top-0 w-full z-50">
+      <div className="mx-12 flex items-center justify-between h-[64px]">
+        
+        <Link href="/" className="flex items-center">
+          <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2"/>
+          <span className="font-bold text-xl">FullTechno</span>
         </Link>
 
-        <div className={styles.navLinks}>
+        <div className="flex items-center gap-[2rem]">
+          <NavLink href="/shop">Shop</NavLink>
+          <NavLink href="/products">Products</NavLink>
+          <NavLink href="/categories">Categories</NavLink>
+          <NavLink href="/about">About Us</NavLink>
+          <NavLink href="/support">Support</NavLink>
 
-          <Link href="/shop" className={styles.navLink}>
-            Shop
-          </Link>
-          <Link href="/products" className={styles.navLink}>
-            Products
-          </Link>
-          <Link href="/categories" className={styles.navLink}>
-            Categories
-          </Link>
-          <Link href="/about" className={styles.navLink}>
-            About Us
-          </Link>
-          <Link href="/support" className={styles.navLink}>
-            Support
-          </Link>
-        </div>
-
-        <div className={styles.rightSection}>
-          <div className={styles.searchContainer}>
-            {/* Icono de lupa */}
-            <FaSearch className={styles.searchIcon} onClick={toggleSearch} />
-            {/* Mostrar input solo si `isSearchOpen` es true */}
-            <div className={`${styles.searchDropdown} ${isSearchOpen ? styles.show : ''}`}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className={styles.searchInput}
-              />
-            </div>
+          <div className="relative">
+            <FaSearch 
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-600"
+            />
+            <input
+              type="text"
+              placeholder="Type to search"
+              className="pl-10 h-10 rounded-full bg-primary text-white outline-none placeholder:text-white"
+            />
           </div>
-          <Link href="/cart" className={styles.cartIcon}>
+
+          <Link href="/cart" className="relative text-text text-[1.25rem] no-underline transition-colors duration-300 ease-in-out">
             <FaShoppingCart />
-            <span className={styles.cartCount}>3</span>
+            <span className="absolute top-[-5px] right-[-10px] bg-red-600 text-white rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">3</span>
           </Link>
-          <Link href="/login" className={styles.loginButton}>
+          <button className="bg-tertiary text-white px-4 py-2 rounded">
             Login
-          </Link>
+          </button>
         </div>
       </div>
     </nav>
@@ -65,4 +56,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

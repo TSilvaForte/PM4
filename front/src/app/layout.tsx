@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poiret_One, Montserrat } from 'next/font/google';
+import { NextUIProvider } from "@nextui-org/react"; // Importa el proveedor de NextUI
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 
-//El layout encierra a todas las pages
-//Poiret One
+
 const primaryFont = Poiret_One({
   subsets: ['latin'],
   variable: '--font-primary',
-  weight:['400'],
+  weight: ['400'],
 });
 
-//Montserrat
 const secondaryFont = Montserrat({
   subsets: ['latin'],
   variable: '--font-secondary',
-  weight: ['400'], // Especifica los pesos que necesitas
+  weight: ['400'], 
 });
 
 export const metadata: Metadata = {
@@ -34,12 +33,12 @@ export default function RootLayout({
       <body
         className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}
       >
-        <Navbar/>
-        <main className="container">
-          {children}
-        </main>
-        <Footer/>
-      </body>
+          <Navbar />
+          <main className="container">
+            {children}
+          </main>
+          </body>
+          <Footer />
     </html>
   );
 }

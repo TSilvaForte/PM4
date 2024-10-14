@@ -2,37 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --primary-color:#323232 ;
   --secondary-color:#212121;
   --tertiary-color:#5E61AA ;
-  --quaternary-color: white;
+  --text-color: white;
   --otraopcionver: #333333; 
-}
+} */
 
 body {
-    background-color: var(--secondary-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;  
-    margin-top: 6rem;
+    @apply bg-primary flex flex-col min-h-screen mt-24
+}
+
+text, span, link {
+  @apply text-white
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 90%;
+  @apply mx-auto max-w-[90%]
 }
 
-footer {
-  margin-top:auto; 
-  background-color: var(--primary-color);
-}
-
-navbar {
-  background-color: var(--primary-color);
-}
 
 h1 {
-  font-family: var(--primary-font);
-  font-weight: 600;
+  @apply font-[var(--primary-font)]
+}
+
+button {
+  @apply px-4 py-2 bg-tertiary text-white border-none rounded-md text-base transition duration-300 ease-in-out;
+}
+
+button:hover {
+  @apply bg-secondary;
 }
