@@ -1,7 +1,7 @@
 import Card from '@/components/Card/Card';
 import React from 'react';
 import { productsMock } from './mocks/products';
-import Hero from './hero/page';
+import Hero from '@/components/Hero/Hero';
 
 //El page es como si fuera el index de nuestros proyectos anteriores, en este caso es la landing
 const Page = () => {

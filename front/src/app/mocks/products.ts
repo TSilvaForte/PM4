@@ -52,7 +52,7 @@ export const productsMock: Product[] = [
       description:
         "Immerse yourself in sound with the AirPods Pro: active noise cancellation, transparency mode, and customizable fit make the AirPods Pro the perfect companion for music, calls, and everything in between. Elevate your audio experience with the AirPods Pro.",
       image:
-        "https://maximstore.com/_next/image?url=https%3A%2F%2Fback.maximstore.com%2Fstatic%2Fimages%2F78c64095-6045-4ef8-a980-857b90f8d71e.png&w=1920&q=75",
+        "https://www.macstation.com.ar/web/image/product.image/525/image_1024/AirPods%20Pro%20%282nd%20generation%29?unique=edd59f1",
       categoryId: 5,
       stock: 10,
     },

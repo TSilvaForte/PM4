@@ -47,7 +47,9 @@ const Navbar = () => {
             <span className="absolute top-[-5px] right-[-10px] bg-red-600 text-white rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">3</span>
           </Link>
           <button className="bg-tertiary text-white px-4 py-2 rounded">
+            <Link href="/login" >
             Login
+            </Link>
           </button>
         </div>
       </div>

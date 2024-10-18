@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css"; 
 
-const Carousel = () => {
+const Hero = () => {
   return (
     <div className="relative h-[60vh]">
       <Swiper
@@ -48,7 +48,7 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default Hero;
 
 
 

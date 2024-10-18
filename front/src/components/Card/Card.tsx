@@ -1,37 +1,33 @@
-import Link from "next/link"; // Asegúrate de importar el componente Link
+import Link from "next/link"; 
 import { Product } from "@/interfaces";
-import { FaShoppingCart } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
+import { FaShoppingCart } from "react-icons/fa"; 
 
 interface CardProps extends Product {}
 
 const Card = ({ id, name, image, price }: CardProps) => {
     return (
-        <article className="max-w-sm rounded overflow-hidden shadow-xl p-2 transition-transform duration-200 transform hover:scale-105"> {/* Sombra aumentada */}
+        <article className="w-full max-w-sm shadow-xl border border-secondary rounded-lg transition-transform duration-200 transform hover:scale-105 justify-between">
             <Link href={`/products/${id}`}>
-                <div>
-                  <img className="w-full object-cover" src={image} alt={name} />  
-                </div>
-                {/* Contenedor dividido en dos columnas */}
-                <div className="grid grid-cols-2 items-center p-4 gap-4">
-                  {/* Columna izquierda: nombre y precio */}
-                  <div>
-                    <h3 className="text-text text-xl font-[var(--font-primary)]">{name}</h3>
-                    <p className="text-text text-base mt-1">USD {price}</p> 
-                  </div>
-                  {/* Columna derecha: botón centrado */}
-                  <div className="flex justify-center">
-                    <button className="flex items-center bg-tertiary text-white rounded-md py-1 px-2 hover:bg-secondary transition-colors duration-300">
-                      <FaShoppingCart className="mr-1" /> {/* Icono del carrito */}
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
+                <img className="p-4 rounded-t-md" src={image} alt={name} />
             </Link>
+            <div className="flex flex-col items-center h-full p-5">
+                <h2 className="text-xl font-semibold text-center tracking-tight text-text">{name}</h2>
+                <span className="text-3xl font-bold text-text mt-2">${price}</span>
+                <Link href={`/cart`} className="bg-secondary hover:bg-tertiary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white flex items-center mt-4">
+                    <FaShoppingCart className="mr-2" />
+                    Add to cart
+                </Link>
+            </div>
+
         </article>
     );
 }
 
 export default Card;
+
+
+
+
 
 
 

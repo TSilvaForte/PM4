@@ -11,3 +11,4 @@ const page = ({params}:{params:{id:number}}) => {
 }
 
 export default page;
+

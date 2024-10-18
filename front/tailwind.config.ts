@@ -12,7 +12,7 @@ const config: Config = {
         primary: "#323232",    
         secondary: "#212121",  
         tertiary: "#5E61AA",  
-        text: "#D1D5DB"      
+        text: "#ffffff"      
       },
     },
   },
