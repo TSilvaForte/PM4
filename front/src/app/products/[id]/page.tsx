@@ -1,12 +1,16 @@
-"use client";
-import { productsMock } from "@/app/mocks/products";
 import ProductDetail from "@/components/ProductDetail/ProductDetail";
+import { getProductById } from "@/service/products";
+import { notFound } from "next/navigation";
 
 //Acá mandamos un params, el id, para obtener el detalle del producto. 
-const page = ({params}:{params:{id:number}}) => {
+const page = async ({params}:{params:{id:string}}) => {
   const {id} = params;
+  const product = await getProductById(Number(id));
+  if(!product) {
+    notFound();
+  }
   return (
-      <ProductDetail product={productsMock[id]}/>
+    <ProductDetail id={Number(id)} product={product} />
   )
 }
 
