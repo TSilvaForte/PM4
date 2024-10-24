@@ -7,9 +7,13 @@ import {
     validatePhone,
     validateNewPassword,
     validateRepeatPassword
-} from "@/helpers/validation"; 
+} from "@/helpers/validation";
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: '',
         address: '',
@@ -35,13 +39,22 @@ const RegisterForm = () => {
             ...prevState,
             [name]: type === 'checkbox' ? checked : value,
         }));
-
-        if (type !== 'checkbox') {
-            const error = validateInput(name, value);
-            setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
-        }
     };
 
+    // Validación en el evento onBlur
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const error = validateInput(name, value);
+        setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
+    };
+
+    const dataToSend = {
+        address: formData.address,
+        email: formData.email,
+        name: formData.name,
+        password: formData.password,
+        phone: formData.phone,
+    };
     const validateInput = (name: string, value: string) => {
         switch (name) {
             case 'name':
@@ -78,24 +91,36 @@ const RegisterForm = () => {
         setErrors(newErrors);
 
         if (isFormValid()) {
-            // Aquí iría la lógica para registrar la cuenta
-            // Por ejemplo, enviar una solicitud POST a tu API
             try {
-                const response = await fetch('/api/register', {
+                const response = await fetch(`${apiUrl}/users/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify(dataToSend)
                 });
 
                 if (!response.ok) {
                     throw new Error('Registration failed');
                 }
 
-                console.log('Form submitted', formData);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User registered successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    router.push('/login'); 
+                });
+
+                console.log('Form submitted', dataToSend);
             } catch (error) {
                 console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'User could not be registered. Please try again.'
+                });
             }
         }
     };
@@ -105,15 +130,16 @@ const RegisterForm = () => {
             <div>
                 <div className="mb-5">
                     <label htmlFor="name" className="block mb-2 text-md font-medium text-white">Name and Surname</label>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        id="name" 
-                        value={formData.name} 
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={formData.name}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        placeholder="Name and Surname" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        placeholder="Name and Surname"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.name ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.name}
@@ -121,15 +147,16 @@ const RegisterForm = () => {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="address" className="block mb-2 text-md font-medium text-white">Address</label>
-                    <input 
-                        type="text" 
-                        name="address" 
-                        id="address" 
-                        value={formData.address} 
+                    <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        value={formData.address}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        placeholder="Your address" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        placeholder="Your address"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.address ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.address}
@@ -137,15 +164,16 @@ const RegisterForm = () => {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="phone" className="block mb-2 text-md font-medium text-white">Phone</label>
-                    <input 
-                        type="tel" 
-                        name="phone" 
-                        id="phone" 
-                        value={formData.phone} 
+                    <input
+                        type="tel"
+                        name="phone"
+                        id="phone"
+                        value={formData.phone}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        placeholder="Your phone number" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        placeholder="Your phone number"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.phone ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.phone}
@@ -156,15 +184,16 @@ const RegisterForm = () => {
             <div>
                 <div className="mb-5">
                     <label htmlFor="email" className="block mb-2 text-md font-medium text-white">Your email</label>
-                    <input 
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        value={formData.email} 
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={formData.email}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        placeholder="name@flowbite.com" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        placeholder="name@flowbite.com"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.email ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.email}
@@ -172,14 +201,15 @@ const RegisterForm = () => {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="password" className="block mb-2 text-md font-medium text-white">Your password</label>
-                    <input 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        value={formData.password} 
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={formData.password}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.password ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.password}
@@ -187,14 +217,15 @@ const RegisterForm = () => {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="repeatPassword" className="block mb-2 text-md font-medium text-white">Repeat password</label>
-                    <input 
-                        type="password" 
-                        name="repeatPassword" 
-                        id="repeatPassword" 
-                        value={formData.repeatPassword} 
+                    <input
+                        type="password"
+                        name="repeatPassword"
+                        id="repeatPassword"
+                        value={formData.repeatPassword}
                         onChange={handleChange}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5" 
-                        required 
+                        onBlur={handleBlur}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.repeatPassword ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
                         {errors.repeatPassword}
@@ -203,14 +234,14 @@ const RegisterForm = () => {
             </div>
 
             <div className="col-span-2 flex items-center justify-center mb-2">
-                <input 
-                    id="terms" 
-                    name="terms" 
-                    type="checkbox" 
+                <input
+                    id="terms"
+                    name="terms"
+                    type="checkbox"
                     checked={formData.terms}
                     onChange={handleChange}
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 accent-tertiary focus:ring-3 focus:ring-blue-300" 
-                    required 
+                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 accent-tertiary focus:ring-3 focus:ring-blue-300"
+                    required
                 />
                 <label htmlFor="terms" className="ms-2 text-sm font-medium text-white">
                     I agree with the <a href="#" className="text-tertiary hover:underline">terms and conditions</a>
@@ -218,9 +249,9 @@ const RegisterForm = () => {
             </div>
 
             <div className="col-span-2 flex justify-center">
-                <button 
-                    type="submit" 
-                    className={`text-white bg-tertiary rounded p-2 ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                <button
+                    type="submit"
+                    className={`text-white bg-tertiary rounded p-2 ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={!isFormValid()}
                 >
                     Register new account
@@ -231,6 +262,9 @@ const RegisterForm = () => {
 }
 
 export default RegisterForm;
+
+
+
 
 
 

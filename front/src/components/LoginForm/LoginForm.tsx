@@ -1,36 +1,94 @@
 "use client";
-import { ChangeEvent, FormEvent, useState, useEffect, useCallback } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect, useContext } from "react";
 import { validateEmail, validatePassword } from "@/helpers/validation";
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
+import { AuthContext } from "../../../context/authContext";
 
 const LoginForm = () => {
     const [data, setData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({ email: "", password: "" });
     const [touched, setTouched] = useState({ email: false, password: false });
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const router = useRouter();
+    const [session, setSession] = useState(null);
+    const {setUser}=useContext(AuthContext);
 
-    const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-    }, []);
+    // Manejo de cambios en los inputs
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
 
-    const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        setData((prevData) => ({ ...prevData, [event.target.name]: event.target.value }));
+        // Actualizar los datos del formulario
+        setData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
 
-        // Validar en tiempo real al cambiar los datos
-        if (event.target.name === "email") {
-            setErrors((prevErrors) => ({ ...prevErrors, email: validateEmail(event.target.value) }));
-        } else if (event.target.name === "password") {
-            setErrors((prevErrors) => ({ ...prevErrors, password: validatePassword(event.target.value) }));
+        // Validar los campos
+        if (name === "email") {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                email: validateEmail(value)
+            }));
+        } else if (name === "password") {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                password: validatePassword(value)
+            }));
         }
-    }, []);
+    };
 
-    const handleBlur = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        setTouched((prevTouched) => ({ ...prevTouched, [event.target.name]: true }));
-    }, []);
+    // Manejo del evento blur para marcar un campo como "touched"
+    const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name } = e.target;
+        setTouched(prevTouched => ({
+            ...prevTouched,
+            [name]: true
+        }));
+    };
 
+    // Habilitar o deshabilitar el botón de submit según las validaciones
     useEffect(() => {
         const isValid = !errors.email && !errors.password && touched.email && touched.password;
         setIsSubmitDisabled(!isValid);
     }, [errors, touched]);
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${apiUrl}/users/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            console.log(response);
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+            const userData = await response.json();  // Parsear la respuesta
+            setUser(userData);  // Pasar los datos del usuario al contexto
+
+            Swal.fire({
+                icon: 'success',
+                title: 'User logged in successfully!',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+              router.push('/')  //no logro usar el use router
+            });
+
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Login failed. Please try again.'
+            });
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -87,7 +145,8 @@ const LoginForm = () => {
             <button
                 type="submit"
                 className={`text-white bg-tertiary rounded p-2 ${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                disabled={isSubmitDisabled}>
+                disabled={isSubmitDisabled}
+            >
                 Submit
             </button>
         </form>
@@ -95,4 +154,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
 

@@ -13,7 +13,7 @@ export const validateNameAndAddress = (value: string): string => {
 };
 
 export const validatePhone = (value: string): string => {
-    return validator.isMobilePhone(value, undefined, { strictMode: false }) ? "" : 'Please enter a valid mobile phone number.';
+    return value.length > 8 ? "" : 'Please enter a valid mobile phone number.';
 };
 
 export const validateNewPassword = (value: string): string => {

@@ -4,6 +4,7 @@ import { Poiret_One, Montserrat } from 'next/font/google';
 import { NextUIProvider } from "@nextui-org/react"; // Importa el proveedor de NextUI
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { AuthProvider } from "../../context/authContext";
 
 
 const primaryFont = Poiret_One({
@@ -29,6 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <AuthProvider>
     <html lang="en">
       <body
         className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}
@@ -40,5 +42,6 @@ export default function RootLayout({
           <Footer />
           </body>
     </html>
+    </AuthProvider>
   );
 }
