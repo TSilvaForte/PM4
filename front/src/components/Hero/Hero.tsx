@@ -24,7 +24,7 @@ const Hero = () => {
           <div className="text-white p-8">
             <h1 className="text-5xl font-bold mb-4">Free Delivery!</h1>
             <p className="text-3xl">Enjoy free delivery on all orders above $500</p>
-            <img src="/phones.png" className="absolute top-12 left-0 w-full h-auto object-cover z-10"/>
+            <img src="/phones.png" alt="Smartphones displayed" className="absolute top-12 left-0 w-full h-auto object-cover z-10"/>
           </div>
         </SwiperSlide>
 

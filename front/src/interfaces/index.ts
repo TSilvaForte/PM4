@@ -31,12 +31,6 @@ export interface UserLogin {
     password: string,
 }
 
-export interface UserSession {
-    login:boolean,
-    user: UserSessionData,
-    token:string
-}
-
 export interface UserSessionData {
     id: number,
     name: string,
@@ -48,6 +42,11 @@ export interface UserSessionData {
     orders: Order[]
 }
 
+export interface UserSession {
+    login:boolean,
+    user: UserSessionData,
+    token:string
+}
 export interface Order {
     id: number,
     status: string,

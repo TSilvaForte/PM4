@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/authContext';
+import { CartContext } from '../../../context/cartContext';
 import { useRouter } from 'next/navigation';
 
 interface NavLinkProps {
@@ -21,7 +21,10 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
   const router = useRouter();
+
+  const totalItems = cart.length;
 
   const handleLogout = () => {
     logout();
@@ -55,7 +58,7 @@ const Navbar = () => {
             <>
               <Link href="/cart" className="relative text-text text-[1.25rem] no-underline transition-colors duration-300 ease-in-out">
                 <FaShoppingCart />
-                <span className="absolute top-[-5px] right-[-10px] bg-red-600 text-white rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">3</span>
+                <span className="absolute top-[-5px] right-[-10px] bg-red-600 text-white rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">{totalItems}</span>
               </Link>
               <button onClick={handleLogout} className="bg-tertiary text-white px-4 py-2 rounded">
                 Logout
