@@ -64,7 +64,7 @@ const LoginForm = () => {
                 },
                 body: JSON.stringify(data)
             });
-            console.log(response);
+            // console.log(response);
             if (!response.ok) {
                 throw new Error('Login failed');
             }
@@ -139,7 +139,7 @@ const LoginForm = () => {
                     />
                 </div>
                 <label htmlFor="remember" className="ms-2 text-sm font-medium text-white">
-                    Remember me
+                    I'm not a robot
                 </label>
             </div>
             <button

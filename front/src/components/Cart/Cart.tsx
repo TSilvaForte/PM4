@@ -7,14 +7,14 @@ import { postOrders } from "@/services/orders";
 import Swal from 'sweetalert2';
 
 const CartComponent = () => {
-    const { cart, removeFromCart } = useContext(CartContext);
+    const { cart, removeFromCart, clearCart } = useContext(CartContext);
     const router = useRouter();
 
     const total = cart.reduce((acc, item) => acc + item.price, 0);
 
     const { user } = useContext(AuthContext);
     const handleBuy = async () => {
-        if (!user || !user.user) {
+        if (!user || !user.user || !user.token) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Not Logged In',
@@ -23,13 +23,16 @@ const CartComponent = () => {
             return;
         }
 
+        const token = user.token;
+
         try {
-            await postOrders(user.user.id, cart);
+            await postOrders(user.user.id, cart, token);
             Swal.fire({
                 icon: 'success',
                 title: 'Order Placed',
                 text: 'Order placed successfully!',
             });
+            clearCart();
             router.push('/');
         } catch (error) {
             console.error("Error placing order:", error);
@@ -72,7 +75,7 @@ const CartComponent = () => {
                                 >
                                     Remove from Cart
                                 </button>
-                                <p className="text-2xl font-bold text-text">${item.price.toFixed(2)}</p>
+                                <p className="min-w-24 text-2xl font-bold text-text">${item.price.toFixed(2)}</p>
                             </div>
                         </div>
                     ))}

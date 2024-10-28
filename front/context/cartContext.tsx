@@ -14,6 +14,7 @@ interface CartContextProps {
     setCart: (cart: CartItem[]) => void;
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: number) => void;
+    clearCart:() => void;
 }
 
 // Crear el contexto, donde vamos a guardar los datos
@@ -22,6 +23,7 @@ export const CartContext = createContext<CartContextProps>({
     setCart: () => {},
     addToCart: () => {},
     removeFromCart: () => {},
+    clearCart:()=>{}
 });
 
 // Crear el provider
@@ -58,11 +60,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== id));
     };
 
+    const clearCart = () => {
+        localStorage.removeItem("cart"); 
+        setCart([]); 
+    };
+
     return (
-        <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );
 };
-
 
