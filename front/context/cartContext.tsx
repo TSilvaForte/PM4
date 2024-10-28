@@ -1,9 +1,10 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
+import { Product } from "@/interfaces";
 
 // Defino una interfaz para cada producto en el carrito
 export interface CartItem {
-    id: number;
+    id: Product['id'];
     name: string;
     price: number;
     image: string; 
@@ -39,7 +40,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect (() => {
         const localCart = JSON.parse(localStorage.getItem("cart")!);
-        setCart(localCart);
+        if (localCart) { // Verificar si localCart no es null
+            setCart(localCart);
+        }
     }, []);
 
 

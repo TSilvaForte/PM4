@@ -2,7 +2,7 @@ import { productsMock } from "@/app/mocks/products";
 import { Product } from "@/interfaces";
 
 const ffProductsMock = process.env.FF_PRODUCTS_MOCK || false;
-const apiUrl = process.env.API_URL || "http://localhost:3000/products";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export const getProducts = async (): Promise<Product[]> => {
     let fetchFailed = false;
