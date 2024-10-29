@@ -12,7 +12,6 @@ const LoginForm = () => {
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const router = useRouter();
-    const [session, setSession] = useState(null);
     const {setUser}=useContext(AuthContext);
 
     // Manejo de cambios en los inputs

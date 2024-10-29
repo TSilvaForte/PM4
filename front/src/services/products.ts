@@ -12,6 +12,7 @@ export const getProducts = async (): Promise<Product[]> => {
             headers: {
                 'Cache-Control': 'no-store', // Deshabilitar caché
             },
+            cache: 'no-store',
         });
 
         if (!res.ok) {

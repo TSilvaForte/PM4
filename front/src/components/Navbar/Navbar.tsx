@@ -39,7 +39,7 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-[2rem]">
-          <NavLink href="/shop">Shop</NavLink>
+        {user &&(<NavLink href="/shop">My Shop</NavLink>)}
           <NavLink href="/products">Products</NavLink>
           <NavLink href="/categories">Categories</NavLink>
           <NavLink href="/about">About Us</NavLink>
