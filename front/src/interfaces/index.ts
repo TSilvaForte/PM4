@@ -50,5 +50,6 @@ export interface UserSession {
 export interface Order {
     id: number,
     status: string,
-    date: string
+    date: string,
+    products:[Product]
 }

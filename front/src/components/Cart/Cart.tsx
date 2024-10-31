@@ -2,58 +2,18 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../../context/cartContext";
 import { useRouter } from 'next/navigation';
-import { AuthContext } from "../../../context/authContext";
-import { postOrders } from "@/services/orders";
-import Swal from 'sweetalert2';
+
 
 const CartComponent = () => {
-    const { cart, removeFromCart, clearCart } = useContext(CartContext);
+    const { cart, removeFromCart, handleCart } = useContext(CartContext);
     const router = useRouter();
 
     const total = cart.reduce((acc, item) => acc + item.price, 0);
 
-    const { user,setUser } = useContext(AuthContext);
-    const handleBuy = async () => {
-        if (!user || !user.user || !user.token) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Not Logged In',
-                text: 'You must be logged in to make a purchase.',
-            });
-            return;
-        }
-
-        const token = user.token;
-
-        try {
-            const newOrder= await postOrders(user.user.id, cart, token);
-            const updatedUser = {
-                ...user,
-                user: {
-                    ...user.user,
-                    orders: [...(user.user.orders || []), newOrder] // Agrega la orden a la lista de órdenes del usuario
-                }
-            };
-            setUser(updatedUser);
-            console.log(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-            Swal.fire({
-                icon: 'success',
-                title: 'Order Placed',
-                text: 'Order placed successfully!',
-            });
-            clearCart();
-            router.push('/');
-        } catch (error) {
-            console.error("Error placing order:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Order Error',
-                text: 'There was an error placing your order. Please try again.',
-            });
-        }
+    const handleBuy = () => {
+        handleCart(); 
     };
-
+        
     const handleContinueShopping = () => {
         router.push("/products");
     };

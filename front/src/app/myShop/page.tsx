@@ -1,16 +1,11 @@
 "use client";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/authContext";
-import { CartContext } from "../../../context/cartContext";
-import { GrOrderedList } from "react-icons/gr";
 
 const MyShop = () => {
     const { user: userData } = useContext(AuthContext);
-    const { cart } = useContext(CartContext);
     const user = userData?.user;
-
-    // Calcula el total del carrito
-    const total = cart.reduce((acc, item) => acc + item.price, 0);
+    console.log(user);
 
     return (
         <div className="font-secondary container mx-auto my-6 p-6 bg-secondary rounded-lg shadow-md">
@@ -22,43 +17,51 @@ const MyShop = () => {
                 <h2 className="text-lg font-semibold text-text">Address: <span className="font-normal">{user?.address}</span></h2>
             </div>
 
-            <h1 className="text-3xl font-bold mb-4 text-text">My Cart</h1>
-            {cart.length ? (
-                <>
-                    {cart.map((item) => (
-                        <div key={item.id} className="flex items-center border-b border-gray-200 py-4 justify-between">
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-20 h-20 object-cover rounded mr-4"
-                            />
-                            <h3 className="text-xl font-semibold flex-1">{item.name}</h3>
-                            <p className="min-w-24 text-2xl font-bold text-text">${item.price.toFixed(2)}</p>
-                        </div>
-                    ))}
-                    <div className="flex justify-between mt-6 border-t pt-4">
-                        <h3 className="text-2xl font-bold text-text">Total:</h3>
-                        <p className="text-2xl font-bold text-text">${total.toFixed(2)}</p>
-                    </div>
-                </>
-            ) : (
-                <p className="text-gray-500">Your cart is empty.</p>
-            )}
-
             <h1 className="text-3xl font-bold mt-8 mb-4 text-text">My Orders</h1>
-            {user?.orders?.length ? (
-                user.orders.map((order, i) => (
-                    <div key={i} className="mb-4 p-4 border rounded-lg bg-primary shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                        <p className="text-lg font-semibold text-text">Order ID: <span className="font-normal">{order.id}</span></p>
-                        {/* Agrega otros detalles relevantes del pedido aquí */}
-                    </div>
-                ))
+            {user?.orders.length ? (
+                user.orders.map((order) => {
+                    const orderTotal = order.products?.reduce((total, product) => total + product.price, 0);
+                    
+                    return (
+                        <div key={order.id} className="mb-4 p-4 border rounded-lg bg-primary shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            <div className="flex items-center justify-between border-b border-gray-300 pb-2 mb-4">
+                                <h3 className="text-lg font-semibold text-text">Order ID: {order.id}</h3>
+                                <div className="flex space-x-4 text-gray-600">
+                                    <span className="font-semibold">Status: {order.status}</span>
+                                    <span>Date: {new Date(order.date).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+
+                            {Array.isArray(order.products) && order.products.length > 0 ? (
+                                order.products.map((product) => (
+                                    <div key={product.id} className="flex items-center justify-between mb-2 p-2 bg-secondary rounded shadow">
+                                        <img
+                                            src={product.image}
+                                            alt={product.name}
+                                            className="w-16 h-16 object-cover rounded mr-4"
+                                        />
+                                        <h3 className="text-lg font-medium flex-1 text-text">{product.name}</h3>
+                                        <p className="text-lg font-semibold text-text">${product.price.toFixed(2)}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-gray-500">No products found in this order.</p>
+                            )}
+
+                            <div className="flex justify-end mt-4">
+                                <h3 className="text-lg font-bold text-text">Total: ${orderTotal?.toFixed(2)}</h3>
+                            </div>
+                        </div>
+                    );
+                })
             ) : (
                 <p className="text-gray-500">You have no orders yet.</p>
             )}
         </div>
     );
-}
+};
 
 export default MyShop;
+
+
 

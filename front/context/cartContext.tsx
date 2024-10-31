@@ -1,6 +1,10 @@
 "use client";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { Product } from "@/interfaces";
+import { postOrders } from "@/services/orders";
+import Swal from 'sweetalert2';
+import { useRouter } from "next/navigation";
+import { AuthContext } from "./authContext";
 
 // Defino una interfaz para cada producto en el carrito
 export interface CartItem {
@@ -16,6 +20,7 @@ interface CartContextProps {
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: number) => void;
     clearCart:() => void;
+    handleCart:() => void;
 }
 
 // Crear el contexto, donde vamos a guardar los datos
@@ -24,13 +29,15 @@ export const CartContext = createContext<CartContextProps>({
     setCart: () => {},
     addToCart: () => {},
     removeFromCart: () => {},
-    clearCart:()=>{}
+    clearCart:()=>{},
+    handleCart: () => {}
 });
 
 // Crear el provider
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
-
+    const router = useRouter();
+    const { user, setUser } = useContext(AuthContext);
     
     useEffect(() => {
         if (cart.length>0) {
@@ -68,8 +75,51 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setCart([]); 
     };
 
+    const handleCart = async () => {
+        
+
+        if (!user || !user.user || !user.token) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Not Logged In',
+                text: 'You must be logged in to make a purchase.',
+            });
+            return;
+        }
+
+        const token = user.token;
+
+        try {
+            const newOrder= await postOrders(user.user.id, cart, token);
+            const updatedUser = {
+                ...user,
+                user: {
+                    ...user.user,
+                    orders: [...(user.user.orders || []), newOrder] // Agrega la orden a la lista de órdenes del usuario
+                }
+            };
+            setUser(updatedUser);
+            console.log(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Placed',
+                text: 'Order placed successfully!',
+            });
+            clearCart();
+            router.push('/');
+        } catch (error) {
+            console.error("Error placing order:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Order Error',
+                text: 'There was an error placing your order. Please try again.',
+            });
+        }
+    }
+
     return (
-        <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, clearCart, handleCart }}>
             {children}
         </CartContext.Provider>
     );
