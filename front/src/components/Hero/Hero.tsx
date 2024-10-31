@@ -21,7 +21,7 @@ const Hero = () => {
           className="relative h-full flex items-center justify-center text-center bg-gradient-to-r"
           style={{ background: `linear-gradient(to right, #02AFD1, #6B56A4)` }}
         >
-          <div className="text-white p-8">
+          <div className="p-8">
             <h1 className="text-5xl font-bold mb-4">Free Delivery!</h1>
             <p className="text-3xl">Enjoy free delivery on all orders above $500</p>
             <img src="/phones.png" alt="Smartphones displayed" className="absolute top-12 left-0 w-full h-auto object-cover z-10"/>
@@ -36,7 +36,7 @@ const Hero = () => {
             backgroundPosition: 'center'
           }}
         >
-          <div className="text-white p-8 relative z-10">
+          <div className="p-8 relative z-10">
             <h1 className="text-4xl font-bold m-8">Guaranteed Store</h1>
             <p className="text-3xl mb-4">Upgrade your tech gear today</p>
             <p className="text-3xl mb-4">We guarantee the best worldwide service</p>

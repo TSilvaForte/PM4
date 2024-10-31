@@ -76,7 +76,7 @@ const LoginForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-              router.push('/')  //no logro usar el use router
+              router.push('/')  
             });
 
         } catch (error) {
@@ -92,7 +92,7 @@ const LoginForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-5">
-                <label htmlFor="email" className="block mb-2 text-md font-medium text-white">
+                <label htmlFor="email" className="block mb-2 text-md font-medium">
                     Your email
                 </label>
                 <input
@@ -111,7 +111,7 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className="mb-5">
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white dark:text-white">
+                <label htmlFor="password" className="block mb-2 text-sm font-medium">
                     Your password
                 </label>
                 <input
@@ -137,13 +137,13 @@ const LoginForm = () => {
                         required
                     />
                 </div>
-                <label htmlFor="remember" className="ms-2 text-sm font-medium text-white">
+                <label htmlFor="remember" className="ms-2 text-sm font-medium">
                     I'm not a robot
                 </label>
             </div>
             <button
                 type="submit"
-                className={`text-white bg-tertiary rounded p-2 ${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                className={`${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 disabled={isSubmitDisabled}
             >
                 Submit

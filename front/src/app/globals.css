@@ -14,7 +14,7 @@ body {
     @apply bg-primary flex flex-col min-h-screen mt-24
 }
 
-text, span, link {
+p, h1, h2, h3, span, Link.text, text, Link, label {
   @apply text-text
 }
 
@@ -33,4 +33,8 @@ button {
 
 button:hover {
   @apply bg-secondary;
+}
+
+.formInput {
+  @apply shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5
 }

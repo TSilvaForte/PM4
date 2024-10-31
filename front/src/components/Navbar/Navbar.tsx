@@ -58,16 +58,16 @@ const Navbar = () => {
             <>
               <Link href="/cart" className="relative text-text text-[1.25rem] no-underline transition-colors duration-300 ease-in-out">
                 <FaShoppingCart />
-                <span className="absolute top-[-5px] right-[-10px] bg-red-600 text-white rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">{totalItems}</span>
+                <span className="absolute top-[-5px] right-[-10px] bg-red-600 rounded-full px-1.5 py-[2px] text-[0.75rem] font-bold">{totalItems}</span>
               </Link>
-              <button onClick={handleLogout} className="bg-tertiary text-white px-4 py-2 rounded">
+              <button onClick={handleLogout} className="hover:bg-primary">
                 Logout
               </button>
             </>
           ) : (
             // Si no está autenticado, mostrar botón de Login
             <Link href="/login">
-              <button className="bg-tertiary text-white px-4 py-2 rounded">
+              <button className="hover:bg-primary">
                 Login
               </button>
             </Link>

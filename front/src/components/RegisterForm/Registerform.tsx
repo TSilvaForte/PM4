@@ -129,7 +129,7 @@ const RegisterForm = () => {
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4 w-2/3 mx-auto" onSubmit={handleSubmit}>
             <div>
                 <div className="mb-5">
-                    <label htmlFor="name" className="block mb-2 text-md font-medium text-white">Name and Surname</label>
+                    <label htmlFor="name" className="block mb-2 text-md font-medium">Name and Surname</label>
                     <input
                         type="text"
                         name="name"
@@ -137,7 +137,7 @@ const RegisterForm = () => {
                         value={formData.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         placeholder="Name and Surname"
                         required
                     />
@@ -146,7 +146,7 @@ const RegisterForm = () => {
                     </p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="address" className="block mb-2 text-md font-medium text-white">Address</label>
+                    <label htmlFor="address" className="block mb-2 text-md font-medium">Address</label>
                     <input
                         type="text"
                         name="address"
@@ -154,7 +154,7 @@ const RegisterForm = () => {
                         value={formData.address}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         placeholder="Your address"
                         required
                     />
@@ -163,7 +163,7 @@ const RegisterForm = () => {
                     </p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="phone" className="block mb-2 text-md font-medium text-white">Phone</label>
+                    <label htmlFor="phone" className="block mb-2 text-md font-medium">Phone</label>
                     <input
                         type="tel"
                         name="phone"
@@ -171,7 +171,7 @@ const RegisterForm = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         placeholder="Your phone number"
                         required
                     />
@@ -183,7 +183,7 @@ const RegisterForm = () => {
 
             <div>
                 <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-md font-medium text-white">Your email</label>
+                    <label htmlFor="email" className="block mb-2 text-md font-medium">Your email</label>
                     <input
                         type="email"
                         name="email"
@@ -191,7 +191,7 @@ const RegisterForm = () => {
                         value={formData.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         placeholder="name@flowbite.com"
                         required
                     />
@@ -200,7 +200,7 @@ const RegisterForm = () => {
                     </p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="password" className="block mb-2 text-md font-medium text-white">Your password</label>
+                    <label htmlFor="password" className="block mb-2 text-md font-medium">Your password</label>
                     <input
                         type="password"
                         name="password"
@@ -208,7 +208,7 @@ const RegisterForm = () => {
                         value={formData.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.password ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
@@ -216,7 +216,7 @@ const RegisterForm = () => {
                     </p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="repeatPassword" className="block mb-2 text-md font-medium text-white">Repeat password</label>
+                    <label htmlFor="repeatPassword" className="block mb-2 text-md font-medium">Repeat password</label>
                     <input
                         type="password"
                         name="repeatPassword"
@@ -224,7 +224,7 @@ const RegisterForm = () => {
                         value={formData.repeatPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-primary text-sm rounded-lg block w-[21rem] p-2.5"
+                        className="formInput"
                         required
                     />
                     <p className={`text-red-500 text-xs mt-1 ${errors.repeatPassword ? '' : 'invisible'}`} style={{ minHeight: '1rem' }}>
@@ -240,10 +240,10 @@ const RegisterForm = () => {
                     type="checkbox"
                     checked={formData.terms}
                     onChange={handleChange}
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 accent-tertiary focus:ring-3 focus:ring-blue-300"
+                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 accent-tertiary"
                     required
                 />
-                <label htmlFor="terms" className="ms-2 text-sm font-medium text-white">
+                <label htmlFor="terms" className="ms-2 text-sm font-medium">
                     I agree with the <a href="#" className="text-tertiary hover:underline">terms and conditions</a>
                 </label>
             </div>
@@ -251,7 +251,7 @@ const RegisterForm = () => {
             <div className="col-span-2 flex justify-center">
                 <button
                     type="submit"
-                    className={`text-white bg-tertiary rounded p-2 ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={!isFormValid()}
                 >
                     Register new account

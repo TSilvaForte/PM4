@@ -22,14 +22,14 @@ const CartComponent = () => {
         <div className="max-w-4xl mx-auto p-6">
             {cart.length === 0 ? (
                 <div>
-                    <h2 className="text-3xl font-bold text-text mb-12">Your cart is empty</h2>
-                    <button onClick={() => router.push('/products')} className="bg-secondary text-white py-2 px-4 rounded">
+                    <h2 className="text-3xl font-bold mb-12">Your cart is empty</h2>
+                    <button onClick={() => router.push('/products')} className="bg-secondary py-2 px-4 rounded">
                         Go to Products
                     </button>
                 </div>
             ) : (
                 <div>
-                    <h2 className="text-3xl font-bold text-text mb-6">Your Cart</h2>
+                    <h2 className="text-3xl font-bold mb-6">Your Cart</h2>
                     {cart.map((item) => (
                         <div key={item.id} className="flex items-center border-b border-gray-200 py-4 justify-between">
                             <img
@@ -40,18 +40,18 @@ const CartComponent = () => {
                             <h3 className="text-xl font-semibold flex-1">{item.name}</h3>
                             <div className="flex items-center">
                                 <button
-                                    className="hover:bg-red-600 text-text font-semibold py-2 px-4 rounded mr-8"
+                                    className="hover:bg-red-600 font-semibold py-2 px-4 rounded mr-8"
                                     onClick={() => removeFromCart(item.id)} // Pasar el ID del artículo
                                 >
                                     Remove from Cart
                                 </button>
-                                <p className="min-w-24 text-2xl font-bold text-text">${item.price.toFixed(2)}</p>
+                                <p className="min-w-24 text-2xl font-bold">${item.price.toFixed(2)}</p>
                             </div>
                         </div>
                     ))}
                     <div className="flex justify-between mt-6 border-t pt-4">
-                        <h3 className="text-2xl font-bold text-text">Total:</h3>
-                        <p className="text-2xl font-bold text-text">${total.toFixed(2)}</p>
+                        <h3 className="text-2xl font-bold">Total:</h3>
+                        <p className="text-2xl font-bold">${total.toFixed(2)}</p>
                     </div>
                     <div className="flex justify-center space-x-4">
                         <button

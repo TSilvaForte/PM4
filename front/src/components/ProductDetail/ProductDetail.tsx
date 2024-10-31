@@ -47,16 +47,15 @@ const ProductDetail = ({ id, product }: ProductDetailProps) => {
             <img className="w-1/2 rounded-l-lg object-cover" src={image} alt={name} />
             <div className="flex flex-col justify-between p-6 w-1/2">
                 <div>
-                    <h1 className="text-2xl font-bold text-text mb-2">{name}</h1>
-                    <p className="text-3xl font-bold text-text mb-4">${price.toFixed(2)}</p>
-                    <p className="text-text text-700 mb-4 mt-4">{description}</p>
+                    <h1 className="text-2xl font-bold mb-2">{name}</h1>
+                    <p className="text-3xl font-bold mb-4">${price.toFixed(2)}</p>
+                    <p className="text-700 mb-4 mt-4">{description}</p>
                 </div>
                 <button
                     onClick={isOnCart ? () => router.push("/cart") : () => handleAddToCart()}
-                    className={`bg-secondary hover:bg-tertiary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center text-white flex items-center mt-4 w-40 ${!user?.login ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                    className={`bg-secondary hover:bg-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center flex items-center mt-4 w-40 ${!user?.login ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                         }`}
-                    aria-label={user?.login ? "Add to cart" : "You must login before adding to cart"}
-                    disabled={!user?.login} // Deshabilitado si no está logueado
+                    disabled={!user?.login} 
                 >
                     <FaShoppingCart className="mr-2" />
                     {isOnCart ? "Go to Cart" : "Add to cart"}
