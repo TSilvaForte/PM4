@@ -12,7 +12,7 @@ const CartComponent = () => {
 
     const total = cart.reduce((acc, item) => acc + item.price, 0);
 
-    const { user } = useContext(AuthContext);
+    const { user,setUser } = useContext(AuthContext);
     const handleBuy = async () => {
         if (!user || !user.user || !user.token) {
             Swal.fire({
@@ -26,7 +26,17 @@ const CartComponent = () => {
         const token = user.token;
 
         try {
-            await postOrders(user.user.id, cart, token);
+            const newOrder= await postOrders(user.user.id, cart, token);
+            const updatedUser = {
+                ...user,
+                user: {
+                    ...user.user,
+                    orders: [...(user.user.orders || []), newOrder] // Agrega la orden a la lista de órdenes del usuario
+                }
+            };
+            setUser(updatedUser);
+            console.log(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser));
             Swal.fire({
                 icon: 'success',
                 title: 'Order Placed',
