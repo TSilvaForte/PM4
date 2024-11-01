@@ -11,7 +11,7 @@ export interface CartItem {
     id: Product['id'];
     name: string;
     price: number;
-    image: string; 
+    image: string;
 }
 
 interface CartContextProps {
@@ -19,18 +19,18 @@ interface CartContextProps {
     setCart: (cart: CartItem[]) => void;
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: number) => void;
-    clearCart:() => void;
-    handleCart:() => void;
+    clearCart: () => void;
+    handleCart: () => void;
 }
 
 // Crear el contexto, donde vamos a guardar los datos
 export const CartContext = createContext<CartContextProps>({
     cart: [], // valor inicial
-    setCart: () => {},
-    addToCart: () => {},
-    removeFromCart: () => {},
-    clearCart:()=>{},
-    handleCart: () => {}
+    setCart: () => { },
+    addToCart: () => { },
+    removeFromCart: () => { },
+    clearCart: () => { },
+    handleCart: () => { }
 });
 
 // Crear el provider
@@ -38,14 +38,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const router = useRouter();
     const { user, setUser } = useContext(AuthContext);
-    
+
     useEffect(() => {
-        if (cart.length>0) {
+        if (cart.length > 0) {
             localStorage.setItem("cart", JSON.stringify(cart));
         }
     }, [cart]);
 
-    useEffect (() => {
+    useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem("cart")!);
         if (localCart) { // Verificar si localCart no es null
             setCart(localCart);
@@ -71,12 +71,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const clearCart = () => {
-        localStorage.removeItem("cart"); 
-        setCart([]); 
+        localStorage.removeItem("cart");
+        setCart([]);
     };
 
     const handleCart = async () => {
-        
+
 
         if (!user || !user.user || !user.token) {
             Swal.fire({
@@ -90,24 +90,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         const token = user.token;
 
         try {
-            const newOrder= await postOrders(user.user.id, cart, token);
-            const updatedUser = {
-                ...user,
-                user: {
-                    ...user.user,
-                    orders: [...(user.user.orders || []), newOrder] // Agrega la orden a la lista de órdenes del usuario
-                }
-            };
-            setUser(updatedUser);
-            console.log(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
+            await postOrders(user.user.id, cart, token);
             Swal.fire({
                 icon: 'success',
                 title: 'Order Placed',
                 text: 'Order placed successfully!',
             });
-            clearCart();
             router.push('/');
+            clearCart();
         } catch (error) {
             console.error("Error placing order:", error);
             Swal.fire({
