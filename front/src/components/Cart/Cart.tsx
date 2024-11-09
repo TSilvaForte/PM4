@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../../context/cartContext";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 
 const CartComponent = () => {
@@ -23,7 +24,7 @@ const CartComponent = () => {
             {cart.length === 0 ? (
                 <div>
                     <h2 className="text-3xl font-bold mb-12">Your cart is empty</h2>
-                    <button onClick={() => router.push('/products')} className="bg-secondary py-2 px-4 rounded">
+                    <button onClick={handleContinueShopping} className="bg-secondary py-2 px-4 rounded hover:bg-tertiary">
                         Go to Products
                     </button>
                 </div>
@@ -32,16 +33,18 @@ const CartComponent = () => {
                     <h2 className="text-3xl font-bold mb-6">Your Cart</h2>
                     {cart.map((item) => (
                         <div key={item.id} className="flex items-center border-b border-gray-200 py-4 justify-between">
-                            <img
+                             <Image
                                 src={item.image}
                                 alt={item.name}
-                                className="w-20 h-20 object-cover rounded mr-4"
+                                width={80} 
+                                height={80}
+                                className="object-cover rounded mr-4"
                             />
                             <h3 className="text-xl font-semibold flex-1">{item.name}</h3>
                             <div className="flex items-center">
                                 <button
                                     className="hover:bg-red-600 font-semibold py-2 px-4 rounded mr-8"
-                                    onClick={() => removeFromCart(item.id)} // Pasar el ID del artículo
+                                    onClick={() => removeFromCart(item.id)} 
                                 >
                                     Remove from Cart
                                 </button>

@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../context/authContext';
 import { CartContext } from '../../../context/cartContext';
 import { useRouter } from 'next/navigation';
+import SearchTool from './SearchTool';
 
 interface NavLinkProps {
   href: string;
@@ -46,12 +47,7 @@ const Navbar = () => {
           <NavLink href="/support">Support</NavLink>
 
           <div className="relative">
-            <FaSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-600" />
-            <input
-              type="text"
-              placeholder="Type to search"
-              className="pl-10 h-10 rounded-full bg-primary text-white outline-none placeholder:text-white"
-            />
+            <SearchTool/>
           </div>
 
           {user? (
@@ -79,4 +75,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 

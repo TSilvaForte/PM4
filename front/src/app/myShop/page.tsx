@@ -40,7 +40,7 @@ const MyShop = () => {
 
 
     return (
-        <div className="font-secondary container mx-auto my-6 p-6 bg-secondary rounded-lg shadow-md">
+        <div className="min-h-[70vh] font-secondary container mx-auto my-6 p-6 bg-secondary rounded-lg shadow-md">
             <h1 className="text-3xl font-bold mb-4">My Account</h1>
             <div className="mb-6">
                 <h2 className="text-lg font-semibold">Name: <span className="font-normal">{user?.user.name}</span></h2>

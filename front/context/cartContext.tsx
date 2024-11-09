@@ -76,13 +76,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const handleCart = async () => {
-
-
         if (!user || !user.user || !user.token) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Not Logged In',
-                text: 'You must be logged in to make a purchase.',
+                text: 'You must be logged in to start shopping.',
             });
             return;
         }
@@ -96,7 +94,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                 title: 'Order Placed',
                 text: 'Order placed successfully!',
             });
-            router.push('/');
+            router.push('/myShop');
             clearCart();
         } catch (error) {
             console.error("Error placing order:", error);

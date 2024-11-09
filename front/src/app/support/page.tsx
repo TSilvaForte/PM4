@@ -1,9 +1,10 @@
+import SupportForm from '@/components/SupportForm/SupportForm';
 import React from 'react';
 
 const Support = () => {
   return (
-    <div>
-      Support Form
+    <div className="min-h-[70vh]">
+      <SupportForm/>
     </div>
   )
 }

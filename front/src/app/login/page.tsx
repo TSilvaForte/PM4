@@ -3,12 +3,12 @@ import Link from "next/link";
 
 const Login = () => {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-[90vh] flex flex-col">
             <div className="flex-grow flex">
                 <div className="w-1/2 flex flex-col mt-12 mb-12 items-start px-12">
-                    <h1 className="text-3xl font-bold text-white mb-6">Login</h1>
+                    <h1 className="text-3xl font-bold mb-6">Login</h1>
                     <LoginForm />
-                    <p className="mt-6 text-white">
+                    <p className="mt-6">
                         Do not have an account yet?
                         <br />
                         <Link href="/register" className="text-tertiary font-bold inline-block ml-0 mt-2">
@@ -25,7 +25,7 @@ const Login = () => {
                         className="h-full w-full object-cover rounded-full"
                     />
 
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-8">
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-8">
                         <h2 className="text-2xl font-bold mb-4">Subscribe to our newsletter</h2>
                         <p className="mb-6">Sign up now and get a 5% discount on your next purchase!</p>
                         <form className="w-full max-w-sm">
@@ -37,7 +37,7 @@ const Login = () => {
                             />
                             <button
                                 type="submit"
-                                className="w-full bg-tertiary text-white py-2 rounded-lg"
+                                className="w-full py-2 rounded-lg"
                             >
                                 Subscribe
                             </button>

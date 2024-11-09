@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poiret_One, Montserrat } from 'next/font/google';
-import { NextUIProvider } from "@nextui-org/react"; // Importa el proveedor de NextUI
+// import { NextUIProvider } from "@nextui-org/react"; // Importa el proveedor de NextUI
 
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";

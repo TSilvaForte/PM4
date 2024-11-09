@@ -10,7 +10,7 @@ export const getProducts = async (): Promise<Product[]> => {
     try {
         const res = await fetch(apiUrl + "/products", {
             headers: {
-                'Cache-Control': 'no-store', // Deshabilitar caché
+                'Cache-Control': 'no-store', 
             },
             cache: 'no-store',
         });
@@ -22,6 +22,7 @@ export const getProducts = async (): Promise<Product[]> => {
             return data;  // Devolver productos del backend
         }
     } catch (error) {
+        console.log(error)
         fetchFailed = true;
     }
 

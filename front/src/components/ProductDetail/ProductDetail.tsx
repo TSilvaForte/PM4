@@ -14,7 +14,7 @@ interface ProductDetailProps {
 }
 
 const ProductDetail = ({ id, product }: ProductDetailProps) => {
-    const { name, price, image, description } = product;
+    const { name, price, image, description } = product; //desestructuramos las props de product
     const { user } = useContext(AuthContext);
     const { cart, addToCart } = useContext(CartContext);
     const router = useRouter();
@@ -32,14 +32,7 @@ const ProductDetail = ({ id, product }: ProductDetailProps) => {
             }).then(() => {
                 router.push("/cart");
             });
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Login Required',
-                text: 'Please login to start adding to cart.',
-                confirmButtonText: 'OK',
-            });
-        }
+        } 
     };
 
     return (
@@ -55,7 +48,8 @@ const ProductDetail = ({ id, product }: ProductDetailProps) => {
                     onClick={isOnCart ? () => router.push("/cart") : () => handleAddToCart()}
                     className={`bg-secondary hover:bg-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center flex items-center mt-4 w-40 ${!user?.login ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                         }`}
-                    disabled={!user?.login} 
+                    disabled={!user?.login}
+                    title={!user?.login ? "You must login to buy" : ""} 
                 >
                     <FaShoppingCart className="mr-2" />
                     {isOnCart ? "Go to Cart" : "Add to cart"}

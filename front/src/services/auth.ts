@@ -1,4 +1,4 @@
-import { UserLogin, UserRegister } from "@/interfaces";
+import { UserLogin } from "@/interfaces";
 
 const apiUrl = process.env.API_URL || "http://localhost:3000";
 

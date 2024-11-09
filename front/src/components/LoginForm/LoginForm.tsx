@@ -138,7 +138,7 @@ const LoginForm = () => {
                     />
                 </div>
                 <label htmlFor="remember" className="ms-2 text-sm font-medium">
-                    I'm not a robot
+                    I am not a robot
                 </label>
             </div>
             <button

@@ -3,6 +3,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
+import Image from "next/image";
 import "swiper/swiper-bundle.css"; 
 
 const Hero = () => {
@@ -24,7 +25,17 @@ const Hero = () => {
           <div className="p-8">
             <h1 className="text-5xl font-bold mb-4">Free Delivery!</h1>
             <p className="text-3xl">Enjoy free delivery on all orders above $500</p>
-            <img src="/phones.png" alt="Smartphones displayed" className="absolute top-12 left-0 w-full h-auto object-cover z-10"/>
+            <div className="absolute top-12 left-0 w-full h-auto z-10">
+              <Image
+                src="/phones.png"
+                alt="Smartphones displayed"
+                layout="responsive"
+                width={800} 
+                height={400}
+                className="object-cover"
+                priority 
+              />
+            </div>
           </div>
         </SwiperSlide>
 
