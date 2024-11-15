@@ -6,12 +6,11 @@ import { Product } from '@/interfaces';
 import debounce from 'lodash.debounce';
 
 const SearchTool = () => {
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el valor del campo de entrada
+  const [searchTerm, setSearchTerm] = useState(''); 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [productsData, setProductsData] = useState<Product[]>([]);
   const router = useRouter();
 
-  // Cargar todos los productos al montar el componente
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -24,9 +23,8 @@ const SearchTool = () => {
     fetchProducts();
   }, []);
 
-  // Filtrar productos en función del término de búsqueda con debounce para mejor rendimiento
   const handleSearchChange = debounce((value: string) => {
-    setSearchTerm(value); // Actualiza el estado del campo de entrada
+    setSearchTerm(value); 
     if (value.length > 1) {
       const filtered = productsData.filter((product) =>
         product.name.toLowerCase().includes(value.toLowerCase())
@@ -35,12 +33,12 @@ const SearchTool = () => {
     } else {
       setFilteredProducts([]);
     }
-  }, 100); // 300ms debounce delay
+  }, 300); 
 
   const handleProductClick = (productId: number) => {
-    setFilteredProducts([]); // Limpia las sugerencias
-    setSearchTerm(''); // Limpia el campo de entrada
-    router.push(`/products/${productId}`); // Redirecciona al producto seleccionado
+    setFilteredProducts([]); 
+    setSearchTerm(''); 
+    router.push(`/products/${productId}`); 
   };
 
   return (
@@ -50,7 +48,7 @@ const SearchTool = () => {
         type="text"
         placeholder="Type to search"
         className="pl-10 h-10 rounded-full bg-primary text-white outline-none placeholder:text-white"
-        value={searchTerm} // Conecta el valor del input al estado searchTerm
+        value={searchTerm} 
         onChange={(e) => handleSearchChange(e.target.value)}
         aria-label="Search for products"
       />
@@ -81,28 +79,3 @@ const SearchTool = () => {
 
 export default SearchTool;
 
-
-
-/* const [search, setSearch] = useState (""); //Este estado hace la búsqueda
-const [filteredData, setFilteredData]= useState([]); //este estado carga los datos
-// Ahora definimos el método que va a recibir el evento
-const handleSearch = e => {
-    setSearch(e.target.value)
-    if (search.length>1) {
-    const filterValues = data.filter(q=> {
-        const qName=q.name.toLowerCase();
-        const qResult = e.target.value.toLowerCase();
-        if (qName.includes(qResult)){
-            return true
-        }
-        return false
-    })
-    setFilteredData(filterValues)
-}
-}
-
-useEffect(() => {
-setFilteredData(data)}, [])
-
-<input type="text" value={search} onChange={setSearch}/>
- */

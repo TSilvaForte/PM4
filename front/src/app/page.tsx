@@ -1,10 +1,9 @@
-import Card from '@/components/Card/Card';
 import React from 'react';
+import Card from '@/components/Card/Card';
 import Hero from '@/components/Hero/Hero';
 import { getFeaturedProducts } from '@/services/products';
 import { Product } from '@/interfaces';
 
-//El page es como si fuera el index de nuestros proyectos anteriores, en este caso es la landing
 const Page = async (): Promise<React.JSX.Element> => {
   let  products: Product[] = [];
   try{

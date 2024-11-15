@@ -1,4 +1,4 @@
-"use client"; //para poder usar el useRouter
+"use client"; 
 import React, { useContext } from 'react';
 import { Product } from '@/interfaces';
 import { FaShoppingCart } from "react-icons/fa";
@@ -14,7 +14,7 @@ interface ProductDetailProps {
 }
 
 const ProductDetail = ({ id, product }: ProductDetailProps) => {
-    const { name, price, image, description } = product; //desestructuramos las props de product
+    const { name, price, image, description } = product; 
     const { user } = useContext(AuthContext);
     const { cart, addToCart } = useContext(CartContext);
     const router = useRouter();

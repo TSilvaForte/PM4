@@ -14,17 +14,14 @@ const LoginForm = () => {
     const router = useRouter();
     const {setUser}=useContext(AuthContext);
 
-    // Manejo de cambios en los inputs
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        // Actualizar los datos del formulario
         setData(prevData => ({
             ...prevData,
             [name]: value
         }));
 
-        // Validar los campos
         if (name === "email") {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -38,7 +35,6 @@ const LoginForm = () => {
         }
     };
 
-    // Manejo del evento blur para marcar un campo como "touched"
     const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target;
         setTouched(prevTouched => ({
@@ -47,7 +43,6 @@ const LoginForm = () => {
         }));
     };
 
-    // Habilitar o deshabilitar el botón de submit según las validaciones
     useEffect(() => {
         const isValid = !errors.email && !errors.password && touched.email && touched.password;
         setIsSubmitDisabled(!isValid);
@@ -67,8 +62,8 @@ const LoginForm = () => {
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-            const userData = await response.json();  // Parsear la respuesta
-            setUser(userData);  // Pasar los datos del usuario al contexto
+            const userData = await response.json();  
+            setUser(userData);  
 
             Swal.fire({
                 icon: 'success',

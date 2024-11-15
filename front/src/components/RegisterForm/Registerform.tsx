@@ -41,7 +41,6 @@ const RegisterForm = () => {
         }));
     };
 
-    // Validación en el evento onBlur
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const error = validateInput(name, value);

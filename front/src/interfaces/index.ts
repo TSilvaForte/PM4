@@ -1,4 +1,4 @@
-//Esto sale de la carpeta entities del back
+
 
 export interface Product {
     id:number,

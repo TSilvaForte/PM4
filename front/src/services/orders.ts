@@ -23,6 +23,6 @@ export const postOrders = async (userId: number, cart: CartItem[], token:string)
         return await res.json();
     } catch (error) {
         console.error("Error posting orders:", error);
-        throw error; // Propagar el error para que `CartComponent` lo maneje
+        throw error; 
     }
 };

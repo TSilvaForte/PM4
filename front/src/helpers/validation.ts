@@ -17,7 +17,7 @@ export const validatePhone = (value: string): string => {
 };
 
 export const validateNewPassword = (value: string): string => {
-    const strongPasswordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/; // At least 8 characters with letters and numbers
+    const strongPasswordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/; 
     return strongPasswordPattern.test(value) ? "" : 'Password must be at least 8 characters long and include letters and numbers.';
 };
 

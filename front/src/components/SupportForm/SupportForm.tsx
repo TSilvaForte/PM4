@@ -30,14 +30,14 @@ const SupportForm = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Muestra la alerta informativa con SweetAlert2
+
         Swal.fire({
             icon: "success",
             title: "Form Submitted",
             text: "Our support team will be in touch within the next 24 hours",
             confirmButtonText: "OK",
         });
-        // Limpia los campos del formulario
+
         setFormData({
             description: "",
             country: "",
@@ -55,7 +55,7 @@ const SupportForm = () => {
             <textarea
                 id="description"
                 name="description"
-                maxLength={180} // Cambiado a number
+                maxLength={180} 
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Max 180 characters"

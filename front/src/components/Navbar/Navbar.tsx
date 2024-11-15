@@ -2,16 +2,17 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/authContext';
 import { CartContext } from '../../../context/cartContext';
 import { useRouter } from 'next/navigation';
 import SearchTool from './SearchTool';
 
+
 interface NavLinkProps {
   href: string;
-  children: React.ReactNode; // Tipado del contenido de NavLink
+  children: React.ReactNode; 
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
@@ -40,17 +41,16 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-[2rem]">
-        {user &&(<NavLink href="/myShop">My Shop</NavLink>)}
+          {user && (<NavLink href="/myShop">My Shop</NavLink>)}
           <NavLink href="/products">Products</NavLink>
-          {/* <NavLink href="/categories">Categories</NavLink> */}
           <NavLink href="/aboutUs">About Us</NavLink>
           <NavLink href="/support">Support</NavLink>
 
           <div className="relative">
-            <SearchTool/>
+            <SearchTool />
           </div>
 
-          {user? (
+          {user ? (
             <>
               <Link href="/cart" className="relative text-text text-[1.25rem] no-underline transition-colors duration-300 ease-in-out">
                 <FaShoppingCart />
@@ -61,7 +61,6 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            // Si no está autenticado, mostrar botón de Login
             <Link href="/login">
               <button className="hover:bg-primary">
                 Login

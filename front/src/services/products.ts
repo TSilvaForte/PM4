@@ -19,14 +19,13 @@ export const getProducts = async (): Promise<Product[]> => {
             fetchFailed = true;
         } else {
             const data = await res.json();
-            return data;  // Devolver productos del backend
+            return data;  
         }
     } catch (error) {
         console.log(error)
         fetchFailed = true;
     }
 
-    // Si la solicitud falló y el mock está habilitado, retornamos los productos mock
     if (fetchFailed && ffProductsMock) {
         return productsMock;
     }

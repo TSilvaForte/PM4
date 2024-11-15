@@ -2,6 +2,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../context/authContext";
 import { Order } from "@/interfaces";
+import { Image } from "@nextui-org/react";
 
 const MyShop = () => {
     const { user } = useContext(AuthContext);
@@ -53,7 +54,7 @@ const MyShop = () => {
             {orders?.length ? (
                 orders.map((order) => {
                     const orderTotal = order.products?.reduce((total, product) => total + product.price, 0);
-                    
+
                     return (
                         <div key={order.id} className="mb-4 p-4 border rounded-lg bg-primary shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                             <div className="flex items-center justify-between border-b border-gray-300 pb-2 mb-4">
@@ -67,10 +68,12 @@ const MyShop = () => {
                             {Array.isArray(order.products) && order.products.length > 0 ? (
                                 order.products.map((product) => (
                                     <div key={product.id} className="flex items-center justify-between mb-2 p-2 bg-secondary rounded shadow">
-                                        <img
+                                        <Image
                                             src={product.image}
                                             alt={product.name}
-                                            className="w-16 h-16 object-cover rounded mr-4"
+                                            width={64}
+                                            height={64}
+                                            className="object-cover rounded mr-4"
                                         />
                                         <h3 className="text-lg font-medium flex-1">{product.name}</h3>
                                         <p className="text-lg font-semibold">${product.price.toFixed(2)}</p>

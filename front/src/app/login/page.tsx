@@ -1,5 +1,6 @@
 import LoginForm from "@/components/LoginForm/LoginForm";
 import Link from "next/link";
+import Image from "next/image";
 
 const Login = () => {
     return (
@@ -19,12 +20,12 @@ const Login = () => {
                 </div>
 
                 <div className="w-1/2 relative flex justify-center items-center bg-secondary mb-8 rounded-full overflow-hidden">
-                    <img
+                    <Image
                         src="/background-slice.jpg"
                         alt="Subscription Offer"
-                        className="h-full w-full object-cover rounded-full"
+                        layout="fill"
+                        className="object-cover rounded-full"
                     />
-
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-8">
                         <h2 className="text-2xl font-bold mb-4">Subscribe to our newsletter</h2>
                         <p className="mb-6">Sign up now and get a 5% discount on your next purchase!</p>
