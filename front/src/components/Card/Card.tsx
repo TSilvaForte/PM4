@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import Link from "next/link";
 import { FaInfoCircle } from "react-icons/fa";
 import { Image } from "@nextui-org/react";

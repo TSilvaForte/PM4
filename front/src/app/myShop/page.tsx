@@ -26,7 +26,7 @@ const MyShop = () => {
             }
 
             const dataOrders = await response.json();
-            console.log(dataOrders)
+            // console.log(dataOrders)
             setOrders(dataOrders);
         } catch (error) {
             console.error("Error fetching orders:", error);

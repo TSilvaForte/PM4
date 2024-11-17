@@ -23,9 +23,8 @@ interface CartContextProps {
     handleCart: () => void;
 }
 
-// Crear el contexto, donde vamos a guardar los datos
 export const CartContext = createContext<CartContextProps>({
-    cart: [], // valor inicial
+    cart: [], 
     setCart: () => { },
     addToCart: () => { },
     removeFromCart: () => { },
@@ -33,11 +32,10 @@ export const CartContext = createContext<CartContextProps>({
     handleCart: () => { }
 });
 
-// Crear el provider
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const router = useRouter();
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         if (cart.length > 0) {
@@ -47,25 +45,21 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem("cart")!);
-        if (localCart) { // Verificar si localCart no es null
+        if (localCart) { 
             setCart(localCart);
         }
     }, []);
 
 
-    // Función para agregar un producto al carrito
     const addToCart = (item: CartItem) => {
         setCart((prevCart) => {
-            // Si el producto ya está en el carrito, no hago nada porque no está definido en el back
             if (prevCart.some((cartItem) => cartItem.id === item.id)) {
                 return prevCart;
             }
-            // Si no existe, puedo agregar el nuevo producto
             return [...prevCart, item];
         });
     };
 
-    // Función para eliminar un producto del carrito
     const removeFromCart = (id: number) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== id));
     };

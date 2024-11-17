@@ -8,14 +8,12 @@ interface AuthContextProps {
     logout: () => void;
 }
 
-// Crear el contexto, donde vamos a guardar los datos
 export const AuthContext = createContext<AuthContextProps>({
-    user: null,         // Valor inicial del usuario
+    user: null,         
     setUser: () => {},
     logout: () => {},
 });
 
-// Crear el provider
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const [user, setUser] = useState<UserSession | null>(null);
 
