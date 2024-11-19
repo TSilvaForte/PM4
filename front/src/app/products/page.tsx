@@ -8,7 +8,6 @@ const Products = () => {
   const [productsData, setProductsData] = useState<Product[]>([]);
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
   const [sortCriteria, setSortCriteria] = useState<string>('default');
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,7 +36,6 @@ const Products = () => {
 
     setSortCriteria(criteria);
     setSortedProducts(sorted);
-    setIsDropdownOpen(false); 
   };
 
   return (
